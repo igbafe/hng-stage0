@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile Card - Stage 0</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        line-height: 1.6;
+      }
+
+      .profile-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        max-width: 800px;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .card-content {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        padding: 32px;
+      }
+
+      .avatar-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .avatar-figure {
+        margin: 0;
+      }
+
+      .avatar-img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #667eea;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .info-section {
+        flex: 1;
+      }
+
+      .card-header {
+        text-align: center;
+        margin-bottom: 16px;
+      }
+
+      .user-name {
+        font-size: 28px;
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 8px;
+      }
+
+      .user-time {
+        font-size: 12px;
+        color: #718096;
+        font-family: "Courier New", monospace;
+      }
+
+      .user-bio {
+        color: #4a5568;
+        font-size: 16px;
+        margin-bottom: 24px;
+        text-align: center;
+      }
+
+      .social-links {
+        list-style: none;
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 24px;
+      }
+
+      .social-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        background: #667eea;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .social-link:hover {
+        background: #5a67d8;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+      }
+
+      .social-link:focus {
+        outline: 3px solid #667eea;
+        outline-offset: 2px;
+      }
+
+      .lists-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .list-section {
+        background: #f7fafc;
+        padding: 20px;
+        border-radius: 12px;
+        border-left: 4px solid #667eea;
+      }
+
+      .section-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #2d3748;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .list-item {
+        color: #4a5568;
+        font-size: 15px;
+        padding-left: 24px;
+        position: relative;
+      }
+
+      .list-item::before {
+        content: "•";
+        position: absolute;
+        left: 8px;
+        color: #667eea;
+        font-weight: bold;
+      }
+
+      /* Responsive Design */
+      @media (min-width: 768px) {
+        .card-content {
+          flex-direction: row;
+          align-items: flex-start;
+        }
+
+        .avatar-section {
+          flex-direction: column;
+          min-width: 200px;
+        }
+
+        .card-header {
+          text-align: left;
+        }
+
+        .user-bio {
+          text-align: left;
+        }
+
+        .social-links {
+          justify-content: flex-start;
+        }
+
+        .lists-container {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .avatar-img {
+          width: 180px;
+          height: 180px;
+        }
+
+        .user-name {
+          font-size: 32px;
+        }
+      }
+
+      /* Accessibility: Focus visible */
+      *:focus-visible {
+        outline: 3px solid #667eea;
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <article class="profile-card" data-testid="test-profile-card">
+      <div class="card-content">
+        <aside class="avatar-section">
+          <figure class="avatar-figure">
+            <img
+              src="/profile-pic.jpg"
+              alt="Profile picture of Igbafe Peter"
+              class="avatar-img"
+              data-testid="test-user-avatar"
+            />
+          </figure>
+        </aside>
+
+        <section class="info-section">
+          <header class="card-header">
+            <h1 class="user-name" data-testid="test-user-name">Igbafe Peter</h1>
+            <time
+              class="user-time"
+              data-testid="test-user-time"
+              id="currentTime"
+            ></time>
+          </header>
+
+          <p class="user-bio" data-testid="test-user-bio">
+            Full-stack developer passionate about creating accessible and
+            user-friendly web experiences. I love building innovative solutions
+            that make a difference in people's lives.
+          </p>
+
+          <nav aria-label="Social media links">
+            <ul class="social-links" data-testid="test-user-social-links">
+              <li>
+                <a
+                  href="https://x.com/p_simoen"
+                  class="social-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-testid="test-user-social-twitter"
+                  aria-label="Visit Peter's Twitter profile"
+                >
+                  Twitter
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/igbafe"
+                  class="social-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-testid="test-user-social-github"
+                  aria-label="Visit Peter's GitHub profile"
+                >
+                  GitHub
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/in/igbafe-simon-peter-47b0542b5/"
+                  class="social-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-testid="test-user-social-linkedin"
+                  aria-label="Visit Peter's LinkedIn profile"
+                >
+                  LinkedIn
+                </a>
+              </li>
+            </ul>
+          </nav>
+
+          <div class="lists-container">
+            <section class="list-section" data-testid="test-user-hobbies">
+              <h2 class="section-title"><span>❤️</span> Hobbies</h2>
+              <ul class="list">
+                <li class="list-item">Coding and reading</li>
+                <li class="list-item">Playing Football</li>
+                <li class="list-item">Watching movies</li>
+              </ul>
+            </section>
+
+            <section class="list-section" data-testid="test-user-dislikes">
+              <h2 class="section-title"><span>👎</span> Dislikes</h2>
+              <ul class="list">
+                <li class="list-item">Poorly documented code</li>
+                <li class="list-item">Slow internet</li>
+                <li class="list-item">Spoilers for TV shows</li>
+              </ul>
+            </section>
+          </div>
+        </section>
+      </div>
+    </article>
+
+    <script>
+      // Update current time in milliseconds
+      function updateTime() {
+        const timeElement = document.getElementById("currentTime");
+        const currentTime = Date.now();
+        timeElement.textContent = currentTime;
+        timeElement.setAttribute(
+          "datetime",
+          new Date(currentTime).toISOString()
+        );
+      }
+
+      // Initial update
+      updateTime();
+
+      // Update every second
+      setInterval(updateTime, 1000);
+
+      // Keyboard accessibility: Ensure all interactive elements are accessible
+      document.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            link.click();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
