@@ -12,17 +12,59 @@
       }
 
       body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Oxygen, Ubuntu, Cantarell, sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         min-height: 100vh;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
         padding: 20px;
         line-height: 1.6;
       }
 
+      /* 🔹 Navbar */
+      .navbar {
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-radius: 12px;
+        padding: 10px 20px;
+        margin-bottom: 24px;
+        text-align: center;
+        position: sticky;
+        top: 16px;
+        z-index: 100;
+        width: 100%;
+        max-width: 800px;
+      }
+
+      .navbar ul {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+
+      .navbar a {
+        text-decoration: none;
+        color: #2d3748;
+        font-weight: 600;
+        font-size: 16px;
+        padding: 8px 12px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .navbar a:hover,
+      .navbar a:focus {
+        background: #667eea;
+        color: #fff;
+        outline: none;
+        transform: translateY(-2px);
+      }
+
+      /* 🔹 Profile Card Styling */
       .profile-card {
         background: white;
         border-radius: 16px;
@@ -44,10 +86,6 @@
         flex-direction: column;
         align-items: center;
         gap: 16px;
-      }
-
-      .avatar-figure {
-        margin: 0;
       }
 
       .avatar-img {
@@ -117,11 +155,6 @@
         box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
       }
 
-      .social-link:focus {
-        outline: 3px solid #667eea;
-        outline-offset: 2px;
-      }
-
       .lists-container {
         display: grid;
         grid-template-columns: 1fr;
@@ -167,28 +200,10 @@
         font-weight: bold;
       }
 
-      /* Responsive Design */
       @media (min-width: 768px) {
         .card-content {
           flex-direction: row;
           align-items: flex-start;
-        }
-
-        .avatar-section {
-          flex-direction: column;
-          min-width: 200px;
-        }
-
-        .card-header {
-          text-align: left;
-        }
-
-        .user-bio {
-          text-align: left;
-        }
-
-        .social-links {
-          justify-content: flex-start;
         }
 
         .lists-container {
@@ -196,25 +211,24 @@
         }
       }
 
-      @media (min-width: 1024px) {
-        .avatar-img {
-          width: 180px;
-          height: 180px;
-        }
-
-        .user-name {
-          font-size: 32px;
-        }
-      }
-
-      /* Accessibility: Focus visible */
       *:focus-visible {
         outline: 3px solid #667eea;
         outline-offset: 2px;
       }
     </style>
   </head>
+
   <body>
+    <!-- 🧭 Navbar -->
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html" data-testid="test-nav-profile">Profile</a></li>
+        <li><a href="about.html" data-testid="test-nav-about">About Me</a></li>
+        <li><a href="contact.html" data-testid="test-nav-contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- 👤 Profile Card -->
     <article class="profile-card" data-testid="test-profile-card">
       <div class="card-content">
         <aside class="avatar-section">
@@ -231,17 +245,12 @@
         <section class="info-section">
           <header class="card-header">
             <h1 class="user-name" data-testid="test-user-name">Igbafe Peter</h1>
-            <time
-              class="user-time"
-              data-testid="test-user-time"
-              id="currentTime"
-            ></time>
+            <time class="user-time" data-testid="test-user-time" id="currentTime"></time>
           </header>
 
           <p class="user-bio" data-testid="test-user-bio">
-            Full-stack developer passionate about creating accessible and
-            user-friendly web experiences. I love building innovative solutions
-            that make a difference in people's lives.
+            Full-stack developer passionate about creating accessible and user-friendly web experiences. I love building
+            innovative solutions that make a difference in people's lives.
           </p>
 
           <nav aria-label="Social media links">
@@ -254,9 +263,8 @@
                   rel="noopener noreferrer"
                   data-testid="test-user-social-twitter"
                   aria-label="Visit Peter's Twitter profile"
+                  >Twitter</a
                 >
-                  Twitter
-                </a>
               </li>
               <li>
                 <a
@@ -266,9 +274,8 @@
                   rel="noopener noreferrer"
                   data-testid="test-user-social-github"
                   aria-label="Visit Peter's GitHub profile"
+                  >GitHub</a
                 >
-                  GitHub
-                </a>
               </li>
               <li>
                 <a
@@ -278,9 +285,8 @@
                   rel="noopener noreferrer"
                   data-testid="test-user-social-linkedin"
                   aria-label="Visit Peter's LinkedIn profile"
+                  >LinkedIn</a
                 >
-                  LinkedIn
-                </a>
               </li>
             </ul>
           </nav>
@@ -309,24 +315,17 @@
     </article>
 
     <script>
-      // Update current time in milliseconds
+      // 🕒 Update current time every second
       function updateTime() {
         const timeElement = document.getElementById("currentTime");
         const currentTime = Date.now();
         timeElement.textContent = currentTime;
-        timeElement.setAttribute(
-          "datetime",
-          new Date(currentTime).toISOString()
-        );
+        timeElement.setAttribute("datetime", new Date(currentTime).toISOString());
       }
-
-      // Initial update
       updateTime();
-
-      // Update every second
       setInterval(updateTime, 1000);
 
-      // Keyboard accessibility: Ensure all interactive elements are accessible
+      // ♿ Keyboard accessibility for links
       document.querySelectorAll("a").forEach((link) => {
         link.addEventListener("keydown", (e) => {
           if (e.key === "Enter" || e.key === " ") {

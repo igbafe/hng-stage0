@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen, Ubuntu, Cantarell, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      /* nav */
+      .navbar {
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-radius: 12px;
+        padding: 10px 20px;
+        margin-bottom: 24px;
+        text-align: center;
+        position: sticky;
+        top: 16px;
+        z-index: 100;
+      }
+      .navbar ul {
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+      .navbar a {
+        text-decoration: none;
+        color: #2d3748;
+        font-weight: 600;
+        font-size: 16px;
+        padding: 8px 12px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+      .navbar a:hover,
+      .navbar a:focus {
+        background: #667eea;
+        color: #fff;
+        transform: translateY(-2px);
+      }
+
+      main {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        max-width: 500px;
+        width: 100%;
+        padding: 32px;
+      }
+      h1 {
+        text-align: center;
+        color: #2d3748;
+        margin-bottom: 24px;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      label {
+        font-weight: 600;
+        color: #2d3748;
+        margin-bottom: 4px;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid #cbd5e0;
+        border-radius: 8px;
+        font-size: 16px;
+      }
+      input:focus,
+      textarea:focus {
+        outline: 3px solid #667eea;
+        border-color: #667eea;
+      }
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+      .error {
+        color: #e53e3e;
+        font-size: 14px;
+        margin-top: 4px;
+      }
+      .success {
+        background: #48bb78;
+        color: white;
+        padding: 12px;
+        text-align: center;
+        border-radius: 8px;
+        margin-top: 16px;
+        display: none;
+      }
+      button {
+        background: #667eea;
+        color: white;
+        border: none;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      button:hover {
+        background: #5a67d8;
+        transform: translateY(-2px);
+      }
+      @media (max-width: 480px) {
+        main {
+          padding: 20px;
+        }
+        .navbar ul {
+          gap: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html" data-testid="test-nav-profile">Profile</a></li>
+        <li><a href="about.html" data-testid="test-nav-about">About Me</a></li>
+        <li>
+          <a href="contact.html" data-testid="test-nav-contact">Contact</a>
+        </li>
+      </ul>
+    </nav>
+
+    <main>
+      <h1>Contact Us</h1>
+      <form id="contactForm" novalidate>
+        <div>
+          <label for="fullName">Full Name</label>
+          <input
+            id="fullName"
+            name="fullName"
+            data-testid="test-contact-name"
+            aria-describedby="error-name"
+          />
+          <p
+            class="error"
+            id="error-name"
+            data-testid="test-contact-error-name"
+          ></p>
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            data-testid="test-contact-email"
+            aria-describedby="error-email"
+          />
+          <p
+            class="error"
+            id="error-email"
+            data-testid="test-contact-error-email"
+          ></p>
+        </div>
+        <div>
+          <label for="subject">Subject</label>
+          <input
+            id="subject"
+            name="subject"
+            data-testid="test-contact-subject"
+            aria-describedby="error-subject"
+          />
+          <p
+            class="error"
+            id="error-subject"
+            data-testid="test-contact-error-subject"
+          ></p>
+        </div>
+        <div>
+          <label for="message">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            data-testid="test-contact-message"
+            aria-describedby="error-message"
+          ></textarea>
+          <p
+            class="error"
+            id="error-message"
+            data-testid="test-contact-error-message"
+          ></p>
+        </div>
+        <button type="submit" data-testid="test-contact-submit">Submit</button>
+        <p class="success" id="successMsg" data-testid="test-contact-success">
+          Thank you! Your message has been sent successfully.
+        </p>
+      </form>
+    </main>
+
+    <script>
+      const form = document.getElementById("contactForm");
+      const successMsg = document.getElementById("successMsg");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        let valid = true;
+        const { fullName, email, subject, message } = form;
+        const errs = {
+          name: document.getElementById("error-name"),
+          email: document.getElementById("error-email"),
+          subject: document.getElementById("error-subject"),
+          message: document.getElementById("error-message"),
+        };
+        Object.values(errs).forEach((el) => (el.textContent = ""));
+        successMsg.style.display = "none";
+        if (!fullName.value.trim()) {
+          errs.name.textContent = "Full name is required.";
+          valid = false;
+        }
+        const emailPattern = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+        if (!email.value.trim()) {
+          errs.email.textContent = "Email is required.";
+          valid = false;
+        } else if (!emailPattern.test(email.value)) {
+          errs.email.textContent = "Enter a valid email address.";
+          valid = false;
+        }
+        if (!subject.value.trim()) {
+          errs.subject.textContent = "Subject is required.";
+          valid = false;
+        }
+        if (!message.value.trim()) {
+          errs.message.textContent = "Message is required.";
+          valid = false;
+        } else if (message.value.trim().length < 10) {
+          errs.message.textContent = "Message must be at least 10 characters.";
+          valid = false;
+        }
+        if (valid) {
+          form.reset();
+          successMsg.style.display = "block";
+        }
+      });
+    </script>
+  </body>
+</html>
